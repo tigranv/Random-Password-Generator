@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Security.Cryptography;
 
 
@@ -10,37 +6,42 @@ namespace RandomPasswordGenerator
 {
     public class RandomPassGen
     {
+        // user constructor for library of symbols that will used to create password
         public RandomPassGen(params Library[] lib)
         {
-            switch (lib.Length)
+            for (int i = 0; i < lib.Length; i++)
             {
-                case 1:
-                    library += "0123456789";
-                    break;
-                case 2:
-                    library += "0123456789" + "?!/-_.$#@&^()+*=`~";
-                    break;
-                case 3:
-                    library += "0123456789" + "?!/-_.$#@&^()+*=`~" + "abcdefghijklmnopqrstuvwxyz";
-                    break;
-                case 4:
-                    library += "0123456789" + "?!/-_.$#@&^()+*=`~" + "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("conditions must be equal 0,1,2 or3");      
+                switch (lib[i])
+                {
+                    case Library.numbers:
+                        library += "0123456789";
+                        break;
+                    case Library.symbols:
+                        library += "?!/-_.$#@&^()+*=`~";
+                        break;
+                    case Library.alphabetLower:
+                        library += "abcdefghijklmnopqrstuvwxyz";
+                        break;
+                    case Library.alphabetUper:
+                        library += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("Fields must be from Library");
+                } 
             }    
         }
 
+        // private fields
         private char[] password;
         private string library = String.Empty;
-        private string[] librarr = { "0123456789", "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "~!@#$%^&*()_+/?-*-`" };
 
+        // Method for random password generation
         public string NewPassword(int length)
         {
-            if (length >= 4 && length <= 12)
+            if (length >= 4 && length <= 16)
                 password = new char[length];
             else
-                throw new ArgumentOutOfRangeException("password's length must be more than 3 and less than 13 symbols");
+                throw new ArgumentOutOfRangeException("password's must be from 4 to 16 symbols");
 
             byte[] data = new byte[password.Length];
             var rng = new RNGCryptoServiceProvider();
@@ -51,54 +52,83 @@ namespace RandomPasswordGenerator
             {
                 password[i] = (char)library[rnd.Next(0, library.Length - 1)];
             }
-            return RandomPassGen.ToString(password);
+            return new string(password);
         }
 
-        //public static string HexPasswordGen()
-        //{
-
-        //    char[] pin = new char[19];
-        //    string hex = "0123456789abcdefABCDEF";
-        //    byte[] data = new byte[pin.Length];
-        //    var rng = new RNGCryptoServiceProvider();
-        //    rng.GetBytes(data);
-        //    var seed = BitConverter.ToInt32(data, 0);
-        //    var rnd = new Random(seed);
-        //    for (int i = 0; i < 19; i++)
-        //    {
-        //        if (i != 4 && i != 9 && i != 14)
-        //            pin[i] = (char)hex[rnd.Next(0, hex.Length - 1)];
-        //        else
-        //            pin[i] = '-';
-        //    }
-        //    return RandomPassGen.ToString(pin);
-
-
-        //}
-
-        public static string PinCodeGen()
+        public string NewPassword(int length, params Library[] lib)
         {
-            char[] pin = new char[4];
-            string pincode = "0123456789";
-            byte[] data = new byte[pin.Length];
+            for (int i = 0; i < lib.Length; i++)
+            {
+                switch (lib[i])
+                {
+                    case Library.numbers:
+                        library += "0123456789";
+                        break;
+                    case Library.symbols:
+                        library += "?!/-_.$#@&^()+*=`~";
+                        break;
+                    case Library.alphabetLower:
+                        library += "abcdefghijklmnopqrstuvwxyz";
+                        break;
+                    case Library.alphabetUper:
+                        library += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("Fields must be from Library");
+                }
+            }
+            if (length >= 4 && length <= 16)
+                password = new char[length];
+            else
+                throw new ArgumentOutOfRangeException("password's must be from 4 to 16 symbols");
+
+            byte[] data = new byte[password.Length];
             var rng = new RNGCryptoServiceProvider();
             rng.GetBytes(data);
             var seed = BitConverter.ToInt32(data, 0);
             var rnd = new Random(seed);
-            for (int i = 0; i < pin.Length; i++)
+            for (int i = 0; i < password.Length; i++)
             {
-                pin[i] = (char)pincode[rnd.Next(0, pincode.Length - 1)];
+                password[i] = (char)library[rnd.Next(0, library.Length - 1)];
             }
-            return RandomPassGen.ToString(pin);
+            return new string(password);
         }
 
-        public static string ToString(char[] pin)
+        // Method for Hex password generation
+        public static string HexPassword()
         {
-            string s = String.Empty; ;
-            foreach (var x in pin)
-                s = s + x;
-            return s;
+            char[] hexpassword = new char[19];
+            string hex = "0123456789abcdefABCDEF";
+            byte[] data = new byte[hexpassword.Length];
+            var rng = new RNGCryptoServiceProvider();
+            rng.GetBytes(data);
+            var seed = BitConverter.ToInt32(data, 0);
+            var rnd = new Random(seed);
+            for (int i = 0; i < 19; i++)
+            {
+                if (i != 4 && i != 9 && i != 14)
+                    hexpassword[i] = (char)hex[rnd.Next(0, hex.Length - 1)];
+                else
+                    hexpassword[i] = '-';
+            }
+            return new string(hexpassword);
         }
 
+        // Method for Pin Code generation
+        public static string PinCode()
+        {
+            char[] pinCode = new char[4];
+            string pin = "0123456789";
+            byte[] data = new byte[pinCode.Length];
+            var rng = new RNGCryptoServiceProvider();
+            rng.GetBytes(data);
+            var seed = BitConverter.ToInt32(data, 0);
+            var rnd = new Random(seed);
+            for (int i = 0; i < pinCode.Length; i++)
+            {
+                pinCode[i] = (char)pin[rnd.Next(0, pin.Length - 1)];
+            }
+            return new string(pinCode);
+        }
     }
 }
