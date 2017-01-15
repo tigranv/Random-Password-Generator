@@ -57,6 +57,7 @@ namespace RandomPasswordGenerator
             return new string(password);
         }
 
+        // Overriding method for random password generation
         public string NewPassword(int length, params Library[] lib)
         {
             for (int i = 0; i < lib.Length; i++)
