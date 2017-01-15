@@ -11,3 +11,4 @@ To see how to add class library to your project visit: [Add or Remove References
 ### Simple Usage
 Instead of instantiating individual Random objects, I recommend that you create a single Random instance to generate all the random numbers needed by your app.
 
+> This class library written on C# 2015 .NET Framework 4.6
