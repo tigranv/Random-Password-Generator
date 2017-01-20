@@ -3,8 +3,8 @@
 The Class Library Random-Password-Generator provides an opportunity to generate passwords of following types
 
 * Random cryptography in various lengths and symbols 
-* Generation HexPasswords
-* Generation pinCodes
+* Generation of HexPasswords
+* Generation of pinCodes
 
 ```C#
   class Program
