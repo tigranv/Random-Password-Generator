@@ -34,8 +34,11 @@ The Class Library Random-Password-Generator provides an opportunity to generate 
 ### The output is
 
 > Password----->  SD24YQO85
+
 > Hexpassword-->  49Ac-87BB-08bB-9f87
+
 > Pincode------>  1001
+
 >----------------------------------------
 
 ### Installation
