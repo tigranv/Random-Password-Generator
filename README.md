@@ -1,4 +1,5 @@
-# Random Password Generator Library.    
+# Random Password Generator Library.   <img src="https://cloud.githubusercontent.com/assets/24522089/21962098/41a510c8-db36-11e6-95ef-eb392a0a1919.png" align="right" width="130px" height="130px" /> 
+
 ### Simple library for generating strong cryptographically secure random passwords.   
 The Class Library Random-Password-Generator provides an opportunity to generate passwords of following types
 
