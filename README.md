@@ -43,7 +43,7 @@ The Class Library Random-Password-Generator provides an opportunity to generate 
 >----------------------------------------
 
 ### Installation
-To see how to add class library to your project visit: [Add or Remove References] (https://msdn.microsoft.com/en-us/library/hh708954.aspx)
+To see how to add class library to your project visit: [Add or Remove References](https://msdn.microsoft.com/en-us/library/hh708954.aspx)
 ### Simple Usage
 Instead of instantiating individual Random objects, I recommend that you create a single Random instance to generate all the random numbers needed by your app.
 
